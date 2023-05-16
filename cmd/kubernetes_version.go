@@ -28,6 +28,9 @@ func (k *KubeVersion) BaseVersion() string {
 	// Some provides return the minor version like "15+"
 	minor := strings.Replace(k.Minor, "+", "", -1)
 	ver := fmt.Sprintf("%s.%s", k.Major, minor)
+	if strings.Contains(k.GitVersion, "k3s") {
+		ver = fmt.Sprintf("%s.%s+k3s", k.Major, minor)
+	}
 	k.baseVersion = ver
 	return ver
 }
